@@ -1,199 +1,355 @@
-# Email Action Item Agent - Summarization Module
+# Email Action Item Agent
 
-This module implements intelligent email summarization using LangChain and Ollama (llama3.1 model).
+An intelligent agent that reads email content, summarizes messages, extracts actionable tasks, and prioritizes them for follow-up. This demo project uses AI reasoning to detect context, deadlines, and implied tasks beyond simple keyword-based rules.
 
-## Features
+## Table of Contents
 
-- **Concise Summaries**: Generates 2-3 sentence summaries of email content
-- **Action-Focused**: Highlights key points, action items, and deadlines
-- **LangChain Integration**: Uses ChatOllama with llama3.1 model
-- **Edge Case Handling**: Properly handles short emails, empty content, and emails without action items
-- **Pipeline Integration**: Outputs summaries as part of the email processing pipeline in JSON format
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Expected Output](#expected-output)
+- [Example Output](#example-output)
+- [Project Structure](#project-structure)
+- [Troubleshooting](#troubleshooting)
 
 ## Prerequisites
 
-1. **Ollama**: Install Ollama and pull the llama3.1 model
+Before setting up the Email Action Item Agent, ensure you have the following installed:
+
+### 1. Python
+
+- **Python 3.8 or higher** is required
+- Verify your installation:
+  ```bash
+  python --version
+  ```
+
+### 2. Ollama
+
+Ollama is required to run the local LLM for email processing.
+
+- **Install Ollama**: Follow the instructions at [https://ollama.ai](https://ollama.ai)
+- **Verify installation**:
+  ```bash
+  ollama --version
+  ```
+
+### 3. llama3.1 Model
+
+After installing Ollama, pull the llama3.1 model:
+
+```bash
+ollama pull llama3.1
+```
+
+**Note**: The first pull may take several minutes depending on your internet connection as the model is several gigabytes in size.
+
+**Verify the model is available**:
+```bash
+ollama list
+```
+
+You should see `llama3.1` in the list of available models.
+
+## Installation
+
+1. **Clone or download the repository** to your local machine.
+
+2. **Navigate to the project directory**:
    ```bash
-   # Install Ollama from https://ollama.ai
-   ollama pull llama3.1
+   cd email-action-item-agent
    ```
 
-2. **Python Dependencies**: Install required packages
+3. **Create a virtual environment** (recommended):
+   ```bash
+   python -m venv venv
+   ```
+
+4. **Activate the virtual environment**:
+   
+   - On macOS/Linux:
+     ```bash
+     source venv/bin/activate
+     ```
+   
+   - On Windows:
+     ```bash
+     venv\Scripts\activate
+     ```
+
+5. **Install required dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
 
-## Project Structure
-
-```
-.
-├── summarizer.py           # Email summarization module with LangChain
-├── email_processor.py      # Main processing pipeline
-├── emails/                 # Directory for email .txt files
-│   ├── sample_email_1.txt
-│   ├── sample_email_2.txt
-│   └── sample_email_3.txt
-├── action_items.json       # Output file with processed emails and summaries
-├── requirements.txt        # Python dependencies
-└── README.md              # This file
-```
+   The project requires the following key dependencies:
+   - `ollama` - Python client for Ollama API
+   - `python-dateutil` - For intelligent date parsing
 
 ## Usage
 
-### Basic Usage
+### Basic Workflow
 
-1. Place your email files (as .txt) in the `emails/` directory
-2. Run the email processor:
+1. **Ensure Ollama is running**:
    ```bash
-   python email_processor.py
+   ollama serve
    ```
-3. Check `action_items.json` for results with summaries
+   
+   Leave this terminal window open, or run Ollama as a background service.
 
-### Using the Summarizer Module Directly
+2. **Prepare your emails**:
+   
+   Place email files (`.txt` format) in the `emails/` directory. Each file should contain:
+   - Email subject (first line or clearly marked)
+   - Email body with the message content
+   - Sender and recipient information (optional but helpful)
 
-```python
-from summarizer import create_summarizer
+   Example email structure:
+   ```
+   Subject: Q4 Budget Review Meeting
+   From: john@company.com
+   To: team@company.com
+   
+   Hi team,
+   
+   Please review the Q4 budget proposal by Friday...
+   ```
 
-# Create summarizer instance
-summarizer = create_summarizer(
-    model_name="llama3.1",
-    temperature=0.4  # 0.3-0.5 for consistency
-)
+3. **Run the agent**:
+   ```bash
+   python main.py
+   ```
 
-# Summarize email content
-email_text = """
-Subject: Project Update
-...
-"""
-summary = summarizer.summarize(email_text)
-print(summary)
-```
+4. **View the results**:
+   
+   The agent will:
+   - Read all email files from the `emails/` directory
+   - Process each email using the llama3.1 model
+   - Generate summaries and extract action items
+   - Save results to `action_items.json`
 
-### Using the Email Processor
+### Workflow Description
 
-```python
-from email_processor import EmailProcessor
+The agent performs the following steps:
 
-# Create processor
-processor = EmailProcessor(
-    emails_dir="emails",
-    output_file="action_items.json"
-)
+1. **Email Discovery**: Scans the `emails/` folder for `.txt` files
+2. **Content Parsing**: Reads and structures email content
+3. **AI Processing**: Sends email content to llama3.1 for analysis
+4. **Summarization**: Generates concise email summaries
+5. **Task Extraction**: Identifies actionable items, deadlines, and owners
+6. **Prioritization**: Ranks tasks based on urgency and importance
+7. **Output Generation**: Writes structured JSON with all extracted information
 
-# Process all emails
-results = processor.run()
-```
+## Expected Output
 
-## Configuration
+The agent generates an `action_items.json` file containing structured task information.
 
-### LLM Parameters
+### Output File Structure
 
-The summarizer is configured with optimal parameters for email summarization:
+**Location**: `action_items.json` (in the project root directory)
 
-- **Model**: llama3.1 (via Ollama)
-- **Temperature**: 0.4 (range: 0.3-0.5 for consistency)
-- **Output Length**: 2-3 sentences maximum
+**Format**: JSON array of task objects
 
-You can adjust these in `summarizer.py`:
+### Field Descriptions
 
-```python
-summarizer = EmailSummarizer(
-    model_name="llama3.1",
-    temperature=0.4  # Adjust for more/less variation
-)
-```
+Each task object in the output contains the following fields:
 
-## Output Format
+| Field | Type | Description |
+|-------|------|-------------|
+| `task` | string | Description of the action item to be completed |
+| `owner` | string | Person responsible for the task (extracted from email) |
+| `deadline` | string | Due date in ISO format (YYYY-MM-DD) or "Not specified" |
+| `priority` | string | Task urgency level: "high", "medium", or "low" |
+| `category` | string | Task type: "meeting", "review", "response", "deliverable", etc. |
+| `source_email` | string | Filename of the email this task was extracted from |
+| `summary` | string | Brief summary of the related email content |
 
-The `action_items.json` file contains:
+## Example Output
+
+Here's a realistic example of `action_items.json` with multiple tasks:
 
 ```json
-{
-  "processed_at": "2024-01-01T10:00:00",
-  "total_emails": 3,
-  "emails": [
-    {
-      "email_id": "sample_email_1",
-      "filename": "sample_email_1.txt",
-      "timestamp": "2024-01-01T10:00:00",
-      "summary": "Q4 project deliverables are due December 15th, including final reports, budget documents, and performance metrics. Team members must submit to shared drive by December 14th and report any blockers immediately. A final review meeting is scheduled for December 13th.",
-      "content_length": 542,
-      "raw_content": "..."
-    }
-  ]
-}
+[
+  {
+    "task": "Review Q4 budget proposal and provide feedback",
+    "owner": "Sarah Chen",
+    "deadline": "2024-01-26",
+    "priority": "high",
+    "category": "review",
+    "source_email": "budget_review.txt",
+    "summary": "John requests team review of Q4 budget proposal with focus on marketing and R&D allocations. Feedback needed before Friday's board meeting."
+  },
+  {
+    "task": "Prepare slide deck for client presentation",
+    "owner": "Mike Rodriguez",
+    "deadline": "2024-01-29",
+    "priority": "high",
+    "category": "deliverable",
+    "source_email": "client_meeting_prep.txt",
+    "summary": "Client presentation scheduled for Monday. Need to prepare 15-slide deck covering project progress, timeline updates, and next quarter roadmap."
+  },
+  {
+    "task": "Respond to vendor inquiry about contract renewal",
+    "owner": "Team",
+    "deadline": "Not specified",
+    "priority": "medium",
+    "category": "response",
+    "source_email": "vendor_contract.txt",
+    "summary": "Vendor asking about contract renewal terms for next fiscal year. No urgent deadline mentioned but response expected within reasonable timeframe."
+  }
+]
 ```
 
-## Edge Cases Handled
+## Project Structure
 
-1. **Empty emails**: Returns "Empty email with no content."
-2. **Very short emails** (<20 chars): Returns "Brief message: [content]"
-3. **No action items**: Focuses on main purpose and key information
-4. **LLM failures**: Provides fallback summary with content preview
-5. **Long summaries**: Automatically truncates to first 3 sentences
-
-## Performance
-
-- **Processing time**: Typically <5 seconds per email on standard hardware
-- **Concurrency**: Processes emails sequentially for reliability
-- **Memory**: Minimal footprint, suitable for batch processing
-
-## Testing
-
-Run the summarizer module directly to test with built-in examples:
-
-```bash
-python summarizer.py
+```
+email-action-item-agent/
+├── main.py                 # Main entry point - orchestrates the agent workflow
+├── requirements.txt        # Python dependencies
+├── emails/                 # Input directory - place your .txt email files here
+│   ├── email1.txt
+│   ├── email2.txt
+│   └── ...
+├── action_items.json       # Output file - generated task list (created after first run)
+├── description.md          # Project specification and design documentation
+├── README.md              # This file
+└── .gitignore             # Git ignore rules
 ```
 
-This will process three test emails and display their summaries.
+### Key Files
 
-## Integration with Pipeline
-
-The summarization module is designed to integrate seamlessly with the email action item extraction pipeline:
-
-1. Email content is read by `EmailProcessor`
-2. Content is passed to `EmailSummarizer.summarize()`
-3. Summary is included in the processed email data
-4. Results are saved to `action_items.json`
-
-## Next Steps
-
-This module is part of a larger email processing pipeline. Future enhancements may include:
-
-- Action item extraction and prioritization
-- Deadline detection and calendar integration
-- Task assignment and tracking
-- Interactive querying capabilities
+- **`main.py`**: Core agent logic including email parsing, LLM interaction, task extraction, and JSON output generation
+- **`requirements.txt`**: List of Python packages needed to run the agent
+- **`emails/`**: Directory where you place email files to be processed
+- **`action_items.json`**: Generated output containing all extracted tasks and summaries
 
 ## Troubleshooting
 
-### Ollama Connection Issues
+### Issue: "Ollama not running" or "Connection refused"
 
-If you get connection errors:
+**Symptoms**: Error messages about connection failures or "localhost:11434" being unreachable
+
+**Solution**:
+1. Ensure Ollama is running:
+   ```bash
+   ollama serve
+   ```
+2. Verify Ollama is listening on the default port:
+   ```bash
+   curl http://localhost:11434/api/tags
+   ```
+3. If using a custom port, update the Ollama client configuration in `main.py`
+
+**Alternative**: Check if another process is using port 11434:
 ```bash
-# Check Ollama is running
-ollama list
+# On macOS/Linux
+lsof -i :11434
 
-# Verify llama3.1 is available
-ollama pull llama3.1
+# On Windows
+netstat -ano | findstr :11434
 ```
 
-### Import Errors
+---
 
-If you get LangChain import errors:
+### Issue: "llama3.1 model not found"
+
+**Symptoms**: Error messages like "model 'llama3.1' not found" or "pull model first"
+
+**Solution**:
+1. Pull the llama3.1 model:
+   ```bash
+   ollama pull llama3.1
+   ```
+2. Verify the model is available:
+   ```bash
+   ollama list
+   ```
+3. Ensure you're using the exact model name `llama3.1` (case-sensitive)
+
+**Note**: If you prefer to use a different model (e.g., `llama2`, `mistral`), update the model name in `main.py` and ensure that model is pulled.
+
+---
+
+### Issue: "No emails found in emails/ folder"
+
+**Symptoms**: Agent runs but reports "No emails to process" or generates empty output
+
+**Solution**:
+1. Verify the `emails/` directory exists in the project root
+2. Check that your email files have the `.txt` extension
+3. Ensure files contain actual content (not empty)
+4. Verify file permissions allow reading:
+   ```bash
+   ls -la emails/
+   ```
+
+**Create test emails**:
 ```bash
-# Reinstall dependencies
-pip install -r requirements.txt --upgrade
+mkdir -p emails
+echo -e "Subject: Test Email\nFrom: test@example.com\n\nThis is a test email with an action item." > emails/test.txt
 ```
 
-### Slow Processing
+---
 
-If summarization is slow:
-- Ensure Ollama is using GPU acceleration (if available)
-- Reduce temperature slightly (e.g., 0.3)
-- Check system resources
+### Issue: Low-quality or incorrect task extraction
+
+**Symptoms**: Tasks are vague, missing deadlines, or incorrect priorities
+
+**Solution**:
+1. **Improve email formatting**: Ensure emails have clear structure with subject lines, dates, and explicit action items
+2. **Be explicit in email content**: Use phrases like "by Friday", "due Monday", "please review", "action required"
+3. **Check model version**: Ensure you're using llama3.1 (newer models generally perform better)
+4. **Verify Ollama resources**: Ensure sufficient RAM (8GB+ recommended) for optimal model performance
+
+---
+
+### Issue: Slow processing time
+
+**Symptoms**: Agent takes several minutes to process a few emails
+
+**Solution**:
+1. **Hardware check**: LLMs require significant computational resources
+   - Recommended: 8GB+ RAM, modern CPU
+   - Optional: GPU acceleration (check Ollama GPU support)
+2. **Reduce model size**: Consider using smaller models like `llama2:7b` instead of larger variants
+3. **Process fewer emails**: Start with 2-3 emails to verify functionality before batch processing
+
+---
+
+### Issue: JSON output formatting errors
+
+**Symptoms**: `action_items.json` is malformed or contains syntax errors
+
+**Solution**:
+1. Check the console output for error messages during processing
+2. Verify that email content doesn't contain special characters that might break JSON encoding
+3. Ensure the agent completed processing (didn't exit early due to errors)
+4. Try deleting `action_items.json` and re-running the agent
+
+---
+
+### Getting Additional Help
+
+If you encounter issues not covered here:
+
+1. **Check Ollama logs**: Review Ollama's output in the terminal where you ran `ollama serve`
+2. **Enable debug mode**: If available in `main.py`, enable verbose logging
+3. **Verify Python environment**: Ensure all dependencies are correctly installed:
+   ```bash
+   pip list
+   ```
+4. **Test with minimal input**: Create a simple one-line email to isolate the issue
+
+## Contributing
+
+This is a demo project showcasing agent-based email processing. Feel free to extend functionality:
+
+- Add support for different email formats (HTML, EML)
+- Implement interactive querying ("Show tasks due this week")
+- Add email draft generation for follow-ups
+- Integrate with email APIs (Gmail, Outlook)
+- Add web interface for task management
 
 ## License
 
-This is a demo project for educational purposes.
+This project is provided as-is for demonstration purposes.
