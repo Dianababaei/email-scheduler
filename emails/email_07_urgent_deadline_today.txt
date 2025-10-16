@@ -1,0 +1,29 @@
+Subject: URGENT: Compliance Training Must Be Completed Today
+From: HR Department <hr@techcorp.com>
+To: Alex Martinez <alex.martinez@techcorp.com>
+Date: Monday, March 11, 2024, 3:00 PM
+
+Dear Alex,
+
+This is a final reminder that your annual compliance training must be completed by end of business today (5:00 PM EST) to maintain your access credentials.
+
+Outstanding Modules:
+- Data Privacy & GDPR (30 minutes)
+- Information Security Awareness (20 minutes)
+- Code of Conduct Refresh (15 minutes)
+
+Total time required: Approximately 65 minutes
+
+Failure to complete these modules by today's deadline will result in:
+- Temporary suspension of system access starting tomorrow
+- Escalation to your manager
+- Delay in Q1 performance review processing
+
+Please log into the training portal immediately and complete all outstanding modules. This is a mandatory compliance requirement that cannot be extended.
+
+If you're experiencing technical issues accessing the portal, contact IT support at ext. 5500 immediately.
+
+Thank you for your prompt attention to this urgent matter.
+
+Best regards,
+HR Compliance Team

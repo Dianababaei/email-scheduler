@@ -1,0 +1,30 @@
+Subject: Q2 Planning Session - March 18th
+From: Michael Thompson <m.thompson@techcorp.com>
+To: Team Leads <team-leads@techcorp.com>
+Date: Monday, March 11, 2024, 9:30 AM
+
+Hello Team,
+
+I'd like to schedule our Q2 planning session for next Monday, March 18th from 10:00 AM to 12:00 PM in the large conference room.
+
+Attendees:
+- Alex Martinez (Engineering)
+- Jennifer Wu (Product)
+- Robert Santos (Design)
+- Maria Garcia (QA)
+- Myself
+
+Agenda:
+1. Review Q1 achievements and learnings
+2. Discuss Q2 roadmap priorities
+3. Resource allocation and team capacity planning
+4. Risk assessment and dependencies
+5. Set key milestones and deliverables
+
+Please come prepared with your team's Q1 metrics and Q2 proposals. If you have any conflicts with this time, let me know by Wednesday so we can find an alternative slot.
+
+Looking forward to collaborative planning session!
+
+Best regards,
+Michael Thompson
+VP of Product Development

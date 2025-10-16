@@ -1,0 +1,22 @@
+Subject: FYI - Optional: Brown Bag Lunch on AI Tools
+From: Lisa Park <lisa.park@techcorp.com>
+To: Engineering Team <engineering@techcorp.com>
+Date: Friday, March 8, 2024, 2:15 PM
+
+Hi everyone,
+
+Just wanted to let you know we're hosting an informal brown bag lunch session next week on AI development tools. No rush to RSVP - this is completely optional and casual.
+
+Details:
+- Topic: Exploring GitHub Copilot and other AI coding assistants
+- When: Next Thursday around lunch time
+- Where: Kitchen area
+- Bring your own lunch
+
+I'll do a quick 15-minute demo and then open it up for discussion. Would love to hear about any tools you've been experimenting with.
+
+Feel free to drop by when you can. No pressure if you're busy!
+
+Cheers,
+Lisa
+Senior Developer
