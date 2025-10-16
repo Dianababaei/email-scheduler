@@ -1,0 +1,27 @@
+Subject: CRITICAL: Mobile App Release Blocked - Action Required
+From: Jennifer Wu <jennifer.wu@techcorp.com>
+To: Alex Martinez <alex.martinez@techcorp.com>, Robert Santos <robert.santos@techcorp.com>, Maria Garcia <maria.garcia@techcorp.com>
+Date: Wednesday, March 13, 2024, 8:20 AM
+
+Team,
+
+We have a critical blocker for tomorrow's mobile app release. The iOS build is failing certification due to a permissions issue that QA discovered last night.
+
+Current Status:
+- Android build: Ready for release ✓
+- iOS build: BLOCKED - App Store rejection likely
+- Root cause: Location permissions not properly declared in Info.plist
+- Impact: Release delayed, marketing campaign at risk
+
+Required Actions:
+- Alex: Fix the permissions configuration by EOD today
+- Robert: Update the privacy policy screen copy by 2 PM
+- Maria: Run full regression test suite tonight after fix is deployed
+
+This must be resolved by end of business today to submit for expedited review and hit our Friday launch window. The CMO is expecting this release to support the campaign launching Monday morning.
+
+Please prioritize this above all other work and keep me updated hourly on progress.
+
+Thanks,
+Jennifer Wu
+Product Manager

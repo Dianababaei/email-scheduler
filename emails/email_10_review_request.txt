@@ -1,0 +1,27 @@
+Subject: Code Review Request - New Analytics Dashboard (when you have time)
+From: Jessica Liu <jessica.liu@techcorp.com>
+To: Alex Martinez <alex.martinez@techcorp.com>
+Date: Thursday, March 7, 2024, 3:45 PM
+
+Hey Alex,
+
+Hope you're doing well! When you get a chance, could you review my PR for the new analytics dashboard feature? No rush on this - I know you're swamped this week.
+
+PR Details:
+- Link: https://github.com/techcorp/portal/pull/847
+- Changes: ~450 lines across 8 files
+- Main components: Dashboard layout, chart widgets, data fetching hooks
+
+What I'd appreciate feedback on:
+- Overall architecture approach
+- Any performance concerns with the data refresh logic
+- Accessibility of the chart components
+- General code quality and test coverage
+
+This isn't blocking anything urgent - it's for the Q2 feature set. I'm planning to merge early next week after incorporating feedback, so whenever you can take a look in the next few days would be great.
+
+Feel free to ping me if anything needs clarification. Thanks in advance!
+
+Best,
+Jessica
+Software Engineer

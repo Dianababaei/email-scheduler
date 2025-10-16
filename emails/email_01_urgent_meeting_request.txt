@@ -1,0 +1,22 @@
+Subject: URGENT: Emergency Security Review Meeting - Today 3PM
+From: Sarah Chen <sarah.chen@techcorp.com>
+To: Alex Martinez <alex.martinez@techcorp.com>
+Date: Tuesday, March 12, 2024, 11:45 AM
+
+Alex,
+
+We need to meet ASAP regarding the security vulnerability discovered in the payment processing module this morning. This is critical and needs immediate attention.
+
+Meeting Details:
+- Time: Today at 3:00 PM EST
+- Duration: 1 hour
+- Location: Conference Room B / Zoom link: https://zoom.us/j/123456789
+- Attendees: You, me, and David Kim from InfoSec
+
+Please review the attached security audit report before the meeting if possible. We need to determine our response plan and assign remediation tasks by end of day.
+
+This is urgent - please confirm your attendance immediately.
+
+Thanks,
+Sarah Chen
+Director of Engineering

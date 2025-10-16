@@ -1,0 +1,32 @@
+Subject: URGENT APPROVAL NEEDED: Cloud Infrastructure Budget Increase
+From: David Kim <david.kim@techcorp.com>
+To: Michael Thompson <m.thompson@techcorp.com>, Sarah Chen <sarah.chen@techcorp.com>
+Date: Wednesday, March 13, 2024, 1:30 PM
+
+Michael and Sarah,
+
+I need urgent approval for a cloud infrastructure budget increase before tomorrow's vendor renewal deadline. Our current AWS contract expires Friday and we need to commit to the new tier by EOD Thursday.
+
+Situation:
+- Current monthly spend: $45K
+- Projected need based on user growth: $68K/month
+- Annual commitment required for 15% discount: $816K
+- Current approved budget: $540K annually
+
+Request:
+- Approve additional $276K for annual cloud infrastructure budget
+- Authorization needed from both of you as co-approvers per finance policy
+
+Justification:
+- User base has grown 40% since last year's budget planning
+- Without upgrade, we'll face service degradation and potential outages
+- The 15% discount saves us $144K compared to month-to-month pricing
+- Delay risks losing the discount pricing and negotiating leverage
+
+I've attached the detailed cost analysis and vendor proposal. This is time-sensitive - please review and approve ASAP so I can finalize the contract tomorrow morning.
+
+Can you both reply with approval by end of day today?
+
+Thanks,
+David Kim
+DevOps Lead
